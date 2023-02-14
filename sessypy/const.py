@@ -10,6 +10,9 @@ class SessyApiCommand(str, Enum):
     POWER_STRATEGY = f"{API_VERSION_1}/power/active_strategy"
     P1_STATUS = f"{API_VERSION_1}/p1/status"
     SYSTEM_SETTINGS = f"{API_VERSION_1}/system/settings"
-    
 
-SESSY_DEVICE = "sessy_device"
+class SessyPowerStrategy(str, Enum):
+    API = "POWER_STRATEGY_API"
+    NOM = "POWER_STRATEGY_NOM"
+    ROI = "POWER_STRATEGY_ROI"
+    IDLE = "POWER_STRATEGY_IDLE"
