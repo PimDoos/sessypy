@@ -1,28 +1,45 @@
 import asyncio
-from sessypy.api import SessyApi
-from sessypy.const import SessyApiCommand
 from config import * # Hide your secrets here
-from sessypy.devices import SessyP1Meter, SessyBattery
+from sessypy.devices import SessyDevice, SessyP1Meter, SessyBattery
 
 async def run():
-    print("P1 Status")
-    p1 = SessyP1Meter(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD)
-    result = await p1.get_p1_status()
-    print(result)
-    await p1.close()
-    print("")
+    devices: list(SessyDevice) = [
+        SessyBattery(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD),
+        SessyP1Meter(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD),
+    ]
+    for device in devices:
+        print(f"=== Sessy Device at { device.host } ===")
+        print("- Network status -")
+        result = await device.get_network_status()
+        print(result)
+        print("")
 
-    print("Power Status")
-    battery = SessyBattery(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD)
-    result = await battery.get_power_status()
-    print(result)
-    print("")
+        print("- Software update status -")
+        result = await device.get_ota_status()
+        print(result)
+        print("")
 
-    print("Power Strategy")
-    result = await battery.get_power_strategy()
-    print(result)
-    print("")
-    
-    await battery.close()
+        if isinstance(device, SessyBattery):
+            print("- Power Status -")
+            result = await device.get_power_status()
+            print(result)
+            print("")
+
+            print("- Power Strategy -")
+            result = await device.get_power_strategy()
+            print(result)
+            print("")
+
+            print("- System settings -")
+            result = await device.get_system_settings()
+            print(result)
+            print("")
+        elif isinstance(device, SessyP1Meter):
+            print("- P1 Status -")
+            result = await device.get_p1_status()
+            print(result)
+            print("")
+
+        await device.close()
 
 asyncio.run(run())

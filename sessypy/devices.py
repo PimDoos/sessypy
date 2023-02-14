@@ -4,6 +4,13 @@ from .api import SessyApi
 class SessyDevice():
     def __init__(self, host, username: str, password: str):
         self.api = SessyApi(host, username, password)
+        self.host = host
+
+    async def get_ota_status(self):
+        return await self.api.get(SessyApiCommand.OTA_STATUS)   
+    
+    async def get_network_status(self):
+        return await self.api.get(SessyApiCommand.NETWORK_STATUS)   
 
     async def close(self):
         await self.api.close()
@@ -14,6 +21,9 @@ class SessyBattery(SessyDevice):
     
     async def get_power_strategy(self):
         return await self.api.get(SessyApiCommand.POWER_STRATEGY)
+
+    async def get_system_settings(self):
+        return await self.api.get(SessyApiCommand.SYSTEM_SETTINGS)
 
 class SessyP1Meter(SessyDevice):
     async def get_p1_status(self):

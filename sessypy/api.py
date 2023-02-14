@@ -26,3 +26,6 @@ class SessyApi:
     
     async def close(self):
         await self.session.close()
+    
+class SessyApiError(Exception):
+    pass
