@@ -1,7 +1,6 @@
-from aiohttp import ClientResponseError
 from .const import SessyApiCommand, SessyPowerStrategy
 from .api import SessyApi
-from .util import SessyConnectionException, SessyLoginException, SessyNotSupportedException
+from .util import SessyConnectionException, SessyNotSupportedException
 
 class SessyDevice():
     def __init__(self, host, username: str, password: str):

@@ -1,5 +1,5 @@
 import asyncio
-from config import * # Hide your secrets here
+from config import * # Hide your secrets in example.py
 from sessypy.devices import SessyDevice, SessyP1Meter, SessyBattery, get_sessy_device
 
 async def run():
