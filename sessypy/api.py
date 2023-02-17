@@ -1,6 +1,7 @@
-from aiohttp import BasicAuth
+from aiohttp import BasicAuth, ClientConnectionError, ClientResponseError, ContentTypeError
 import aiohttp
 from .const import SessyApiCommand
+from .util import SessyConnectionException, SessyLoginException, SessyNotSupportedException
 
 
 class SessyApi:
@@ -8,18 +9,30 @@ class SessyApi:
         self.host = host
         
         self.session = aiohttp.ClientSession(
-            auth=BasicAuth(username, password)
+            auth=BasicAuth(username, password),
+            raise_for_status = True
         )
     
     async def get(self, command):
-        url = self._command_url(command)
-        response = await self.session.get(url)
-        return await response.json()
-    
+        return await self.request("GET", command)
     async def post(self, command: SessyApiCommand, data: dict):
-        url = self._command_url(command)
-        response = await self.session.post(url, json = data)
-        return await response.json()
+        return await self.request("POST", command, data)
+    
+    async def request(self, method: str, command: SessyApiCommand, data = None):
+        try:
+            url = self._command_url(command)
+            response = await self.session.request(method, url, json = data)
+            return await response.json()
+        except ClientConnectionError:
+            raise SessyConnectionException
+        except ContentTypeError:
+            raise SessyNotSupportedException
+        except ClientResponseError as e:
+            if e.status == 401:
+                raise SessyLoginException
+            else:
+                raise SessyNotSupportedException
+        
         
     def _command_url(self, command: SessyApiCommand):
         return f"http://{self.host}/{command.value}"
@@ -27,5 +40,3 @@ class SessyApi:
     async def close(self):
         await self.session.close()
     
-class SessyApiError(Exception):
-    pass

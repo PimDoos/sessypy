@@ -1,5 +1,7 @@
+from aiohttp import ClientResponseError
 from .const import SessyApiCommand, SessyPowerStrategy
 from .api import SessyApi
+from .util import SessyConnectionException, SessyLoginException, SessyNotSupportedException
 
 class SessyDevice():
     def __init__(self, host, username: str, password: str):
@@ -45,25 +47,23 @@ class SessyCTMeter(SessyDevice):
 
 """Connect to the API and determine the device type"""
 async def get_sessy_device(host: str, username: str, password: str) -> SessyDevice:
+
+    device_profiles = [
+        (SessyBattery, SessyApiCommand.POWER_STRATEGY),
+        (SessyP1Meter, SessyApiCommand.P1_STATUS),
+        (SessyDevice, SessyApiCommand.NETWORK_STATUS),
+    ]
+
     api = SessyApi(host, username, password)
 
-    try:
-        await api.get(SessyApiCommand.POWER_STRATEGY)
-        return SessyBattery(api)
-    except:
-        pass
-
-    try:
-        await api.get(SessyApiCommand.P1_STATUS)
-        return SessyP1Meter(api)
-    except:
-        pass
-
-    try:
-        await api.get(SessyApiCommand.NETWORK_STATUS)
-        return SessyDevice(api)
-    except:
-        pass
+    for device_profile in device_profiles:
+        try:
+            await api.get(device_profile[1])
+            return device_profile[0](api)
+        except SessyConnectionException:
+            pass
+        except SessyNotSupportedException:
+            pass
 
     return None
         

@@ -1,11 +1,11 @@
 import asyncio
 from config import * # Hide your secrets here
-from sessypy.devices import SessyDevice, SessyP1Meter, SessyBattery
+from sessypy.devices import SessyDevice, SessyP1Meter, SessyBattery, get_sessy_device
 
 async def run():
     devices: list(SessyDevice) = [
-        SessyBattery(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD),
-        SessyP1Meter(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD),
+        await get_sessy_device(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD),
+        await get_sessy_device(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD),
     ]
     for device in devices:
         print(f"=== Sessy Device at { device.host } ===")
