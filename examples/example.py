@@ -7,8 +7,10 @@ async def run():
         await get_sessy_device(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD),
         await get_sessy_device(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD),
     ]
+    device: SessyDevice
     for device in devices:
         print(f"=== Sessy Device at { device.host } ===")
+        print(f"S/N: {device.serial_number}")
         print("- Network status -")
         result = await device.get_network_status()
         print(result)

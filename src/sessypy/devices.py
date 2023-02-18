@@ -9,12 +9,17 @@ class SessyDevice():
         self.host = host
     
     def __init__(self, api: SessyApi):
+        self._serial_number = api.username.upper()
         self.api = api
         self.host = api.host
 
     @property
     def serial_number(self):
-        return self._username
+        return self._serial_number
+    
+    @property
+    def name(self):
+        return f"Sessy-{ self.serial_number[0:4] }"
 
     async def get_ota_status(self):
         return await self.api.get(SessyApiCommand.OTA_STATUS)   

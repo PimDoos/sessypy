@@ -7,6 +7,7 @@ from .util import SessyConnectionException, SessyLoginException, SessyNotSupport
 class SessyApi:
     def __init__(self, host, username, password):
         self.host = host
+        self.username = username
         
         self.session = aiohttp.ClientSession(
             auth=BasicAuth(username, password),
