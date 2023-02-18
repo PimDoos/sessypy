@@ -4,12 +4,17 @@ from .util import SessyConnectionException, SessyNotSupportedException
 
 class SessyDevice():
     def __init__(self, host, username: str, password: str):
+        self._serial_number = username.upper()
         self.api = SessyApi(host, username, password)
         self.host = host
     
     def __init__(self, api: SessyApi):
         self.api = api
         self.host = api.host
+
+    @property
+    def serial_number(self):
+        return self._username
 
     async def get_ota_status(self):
         return await self.api.get(SessyApiCommand.OTA_STATUS)   
