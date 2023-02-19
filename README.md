@@ -6,7 +6,7 @@ Installation
 
 Automatic installation
 ----------------------
-Install the package via PyPI (not available yet):
+Install the package via PyPI:
 ```
 pip install sessypy
 ```

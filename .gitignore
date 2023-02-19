@@ -1,4 +1,5 @@
 __pycache__
+dist
 config.py
 build
 sessypy.egg-info

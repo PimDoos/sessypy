@@ -1,3 +1,15 @@
+[project]
+name = "sessypy"
+version = "0.0.1"
+authors = [
+	{ name="PimDoos" },
+]
+description = "Python wrapper for Sessy REST API"
+readme = "README.md"
+
+[project.urls]
+"Homepage" = "https://github.com/PimDoos/sessypy"
+
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
