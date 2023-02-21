@@ -1,4 +1,4 @@
-from .const import SessyApiCommand, SessyPowerStrategy
+from .const import SessyApiCommand, SessyOtaTarget, SessyPowerStrategy
 from .api import SessyApi
 from .util import SessyConnectionException, SessyNotSupportedException
 
@@ -22,7 +22,13 @@ class SessyDevice():
         return f"Sessy-{ self.serial_number[0:4] }"
 
     async def get_ota_status(self):
-        return await self.api.get(SessyApiCommand.OTA_STATUS)   
+        return await self.api.get(SessyApiCommand.OTA_STATUS)
+    
+    async def check_ota(self):
+        return await self.api.get(SessyApiCommand.OTA_CHECK)
+    
+    async def install_ota(self, target: SessyOtaTarget):
+        return await self.api.post(SessyApiCommand.OTA_START, {"target": target.value})
     
     async def get_network_status(self):
         return await self.api.get(SessyApiCommand.NETWORK_STATUS)   
@@ -60,7 +66,7 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
     device_profiles = [
         (SessyBattery, SessyApiCommand.POWER_STRATEGY),
         (SessyP1Meter, SessyApiCommand.P1_STATUS),
-        (SessyDevice, SessyApiCommand.NETWORK_STATUS),
+        #(SessyDevice, SessyApiCommand.NETWORK_STATUS),
     ]
 
     api = SessyApi(host, username, password)
