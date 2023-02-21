@@ -80,5 +80,6 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
         except SessyNotSupportedException:
             pass
 
+    await api.close()
     return None
         
