@@ -5,21 +5,29 @@ from .util import SessyConnectionException, SessyNotSupportedException
 class SessyDevice():
     def __init__(self, host, username: str, password: str):
         self._serial_number = username.upper()
-        self.api = SessyApi(host, username, password)
-        self.host = host
+        self._api = SessyApi(host, username, password)
+        self._host = host
     
     def __init__(self, api: SessyApi):
         self._serial_number = api.username.upper()
-        self.api = api
-        self.host = api.host
+        self._api = api
+        self._host = api.host
 
     @property
-    def serial_number(self):
+    def serial_number(self) -> str:
         return self._serial_number
     
     @property
-    def name(self):
+    def name(self) -> str:
         return f"Sessy-{ self.serial_number[0:4] }"
+    
+    @property
+    def host(self) -> str:
+        return self._host
+
+    @property
+    def api(self) -> SessyApi:
+        return self._api
 
     async def get_ota_status(self):
         return await self.api.get(SessyApiCommand.OTA_STATUS)
@@ -31,7 +39,10 @@ class SessyDevice():
         return await self.api.post(SessyApiCommand.OTA_START, {"target": target.value})
     
     async def get_network_status(self):
-        return await self.api.get(SessyApiCommand.NETWORK_STATUS)   
+        return await self.api.get(SessyApiCommand.NETWORK_STATUS)
+
+    async def set_wifi_credentials(self, ssid: str, password: str):
+        return await self.api.post(SessyApiCommand.WIFI_STA_CREDENTIALS, {"ssid":ssid, "pass":password})
 
     async def close(self):
         await self.api.close()
