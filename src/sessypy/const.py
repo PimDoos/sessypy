@@ -11,9 +11,13 @@ class SessyApiCommand(str, Enum):
     POWER_SETPOINT = f"{API_VERSION_1}/power/setpoint"
     POWER_STATUS = f"{API_VERSION_1}/power/status"
     POWER_STRATEGY = f"{API_VERSION_1}/power/active_strategy"
+
+    P1_DETAILS = f"{API_VERSION_1}/p1/details"
     P1_STATUS = f"{API_VERSION_1}/p1/status"
+    
     SYSTEM_SETTINGS = f"{API_VERSION_1}/system/settings"
     SYSTEM_INFO = f"{API_VERSION_1}/system/info"
+    WIFI_STA_CREDENTIALS = f"{API_VERSION_1}/wifi_sta/credentials"
 
 
 class SessyPowerStrategy(str, Enum):
