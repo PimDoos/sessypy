@@ -67,6 +67,9 @@ class SessyP1Meter(SessyDevice):
     async def get_p1_status(self):
         return await self.api.get(SessyApiCommand.P1_STATUS)
 
+    async def get_p1_details(self):
+        return await self.api.get(SessyApiCommand.P1_DETAILS)
+
 class SessyCTMeter(SessyDevice):
     pass    
 	
