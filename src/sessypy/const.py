@@ -3,6 +3,7 @@ from enum import Enum
 API_VERSION_1 = "api/v1"
 
 class SessyApiCommand(str, Enum):
+    NETWORK_SCAN = f"{API_VERSION_1}/network/scan"
     NETWORK_STATUS = f"{API_VERSION_1}/network/status"
     OTA_CHECK = f"{API_VERSION_1}/ota/check"
     OTA_START = f"{API_VERSION_1}/ota/start"
