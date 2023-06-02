@@ -38,6 +38,9 @@ class SessyDevice():
     async def install_ota(self, target: SessyOtaTarget):
         return await self.api.post(SessyApiCommand.OTA_START, {"target": target.value})
     
+    async def get_network_scan(self):
+        return await self.api.get(SessyApiCommand.NETWORK_SCAN)
+    
     async def get_network_status(self):
         return await self.api.get(SessyApiCommand.NETWORK_STATUS)
 
