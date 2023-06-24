@@ -43,6 +43,12 @@ class SessyDevice():
     
     async def get_network_status(self):
         return await self.api.get(SessyApiCommand.NETWORK_STATUS)
+    
+    async def get_system_info(self):
+        return await self.api.get(SessyApiCommand.SYSTEM_INFO)
+    
+    async def restart(self):
+        return await self.api.post(SessyApiCommand.SYSTEM_RESTART)
 
     async def set_wifi_credentials(self, ssid: str, password: str):
         return await self.api.post(SessyApiCommand.WIFI_STA_CREDENTIALS, {"ssid":ssid, "pass":password})
