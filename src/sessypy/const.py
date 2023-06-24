@@ -18,6 +18,7 @@ class SessyApiCommand(str, Enum):
     
     SYSTEM_SETTINGS = f"{API_VERSION_1}/system/settings"
     SYSTEM_INFO = f"{API_VERSION_1}/system/info"
+    SYSTEM_RESTART = f"{API_VERSION_1}/system/restart"
     WIFI_STA_CREDENTIALS = f"{API_VERSION_1}/wifi_sta/credentials"
 
 
