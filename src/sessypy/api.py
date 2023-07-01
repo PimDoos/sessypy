@@ -16,7 +16,7 @@ class SessyApi:
     
     async def get(self, command):
         return await self.request("GET", command)
-    async def post(self, command: SessyApiCommand, data: dict):
+    async def post(self, command: SessyApiCommand, data: dict = None):
         return await self.request("POST", command, data)
     
     async def request(self, method: str, command: SessyApiCommand, data = None):
