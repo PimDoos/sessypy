@@ -24,14 +24,20 @@ class SessyApi:
     async def request(self, method: str, command: SessyApiCommand, data = None):
         try:
             url = self._command_url(command)
-            _LOGGER.debug(f"Requesting sessy with url: {url}, and data: {data}")
+            _LOGGER.debug(f"Sending {method} request to {url} with data {data}")
             response = await self.session.request(method, url, json = data)
             return await response.json()
-        except ClientConnectionError:
+        
+        except ClientConnectionError as e:
+            _LOGGER.debug(f"{method} request to {url} raised a connection error: {e}")
             raise SessyConnectionException
-        except ContentTypeError:
+        
+        except ContentTypeError as e:
+            _LOGGER.debug(f"{method} request to {url} returned content of an unexpected type: {e.message}")
             raise SessyNotSupportedException
+        
         except ClientResponseError as e:
+            _LOGGER.debug(f"{method} request to {url} returned an error response code: {e.status} {e.message}")
             if e.status == 401:
                 raise SessyLoginException
             else:
