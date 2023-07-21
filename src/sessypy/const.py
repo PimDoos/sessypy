@@ -54,14 +54,17 @@ class SessyP1State(str, Enum):
 class SessyOtaTarget(str, Enum):
     SELF = "OTA_TARGET_SELF"
     SERIAL = "OTA_TARGET_SERIAL"
+    ALL = "OTA_TARGET_ALL"  # available as of version 1.5.1
 
 class SessyOtaState(str, Enum):
     FAILED = "OTA_UPDATE_FAILED"
+    DISABLED = "OTA_DISABLED"
     INACTIVE = "OTA_INACTIVE"
     CHECKING = "OTA_CHECKING"
     CHECK_FAILED = "OTA_CHECK_FAILED"
     UP_TO_DATE = "OTA_UP_TO_DATE"
     AVAILABLE = "OTA_NEW_VERSION_AVAILABLE"
     UPDATING = "OTA_UPDATING"
+    PENDING_VERIFY = "OTA_PENDING_VERIFY"
     DONE = "OTA_DONE"
     UNKNOWN = "unknown"
