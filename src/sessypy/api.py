@@ -30,18 +30,18 @@ class SessyApi:
         
         except ClientConnectionError as e:
             _LOGGER.debug(f"{method} request to {url} raised a connection error: {e}")
-            raise SessyConnectionException
+            raise SessyConnectionException from e
         
         except ContentTypeError as e:
             _LOGGER.debug(f"{method} request to {url} returned content of an unexpected type: {e.message}")
-            raise SessyNotSupportedException
+            raise SessyNotSupportedException from e
         
         except ClientResponseError as e:
             _LOGGER.debug(f"{method} request to {url} returned an error response code: {e.status} {e.message}")
             if e.status == 401:
-                raise SessyLoginException
+                raise SessyLoginException from e
             else:
-                raise SessyNotSupportedException
+                raise SessyNotSupportedException from e
 
     def _command_url(self, command: SessyApiCommand):
         return f"http://{self.host}/{command.value}"

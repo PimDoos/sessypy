@@ -113,10 +113,12 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
             return device_profile[0](api)
         except SessyConnectionException:
             _LOGGER.debug(f"Skipping device profile {device_profile[0]} for {host}: Connection exception")
-            pass
+
         except SessyNotSupportedException:
             _LOGGER.debug(f"Skipping device profile {device_profile[0]} for {host}: Not supported")
-            pass
+
 
     await api.close()
-    return None
+    
+    # Device does not match any known device profiles, so it is not supported
+    raise SessyNotSupportedException
