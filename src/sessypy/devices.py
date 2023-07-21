@@ -1,6 +1,9 @@
 from .const import SessyApiCommand, SessyOtaTarget, SessyPowerStrategy
 from .api import SessyApi
 from .util import SessyConnectionException, SessyNotSupportedException
+import logging
+
+_LOGGER = logging.getLogger(__name__)
 
 class SessyDevice():
     def __init__(self, host, username: str, password: str):
@@ -108,10 +111,11 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
             await api.get(device_profile[1])
             return device_profile[0](api)
         except SessyConnectionException:
+            _LOGGER.debug(f"Failed to connect to sessy: {host}, with exception: Connection exception")
             pass
         except SessyNotSupportedException:
+            _LOGGER.debug(f"Failed to connect to sessy: {host}, with exception: SessyNotSupportedException")
             pass
 
     await api.close()
     return None
-        
