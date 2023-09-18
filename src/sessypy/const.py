@@ -1,8 +1,11 @@
 from enum import Enum
 
 API_VERSION_1 = "api/v1"
+API_VERSION_2 = "api/v2"
 
 class SessyApiCommand(str, Enum):
+    CT_DETAILS = f"{API_VERSION_1}/ct/details"
+
     NETWORK_SCAN = f"{API_VERSION_1}/network/scan"
     NETWORK_STATUS = f"{API_VERSION_1}/network/status"
     OTA_CHECK = f"{API_VERSION_1}/ota/check"
@@ -13,7 +16,7 @@ class SessyApiCommand(str, Enum):
     POWER_STATUS = f"{API_VERSION_1}/power/status"
     POWER_STRATEGY = f"{API_VERSION_1}/power/active_strategy"
 
-    P1_DETAILS = f"{API_VERSION_1}/p1/details"
+    P1_DETAILS = f"{API_VERSION_2}/p1/details"
     P1_STATUS = f"{API_VERSION_1}/p1/status"
     
     SYSTEM_SETTINGS = f"{API_VERSION_1}/system/settings"

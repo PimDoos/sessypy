@@ -87,7 +87,7 @@ class SessyCTMeter(SessyDevice):
         return await self.api.get(SessyApiCommand.P1_STATUS)
     
     async def get_ct_details(self):
-        return await self.api.get(SessyApiCommand.P1_DETAILS)
+        return await self.api.get(SessyApiCommand.CT_DETAILS)
 	
 
 """Connect to the API and determine the device type"""
@@ -98,8 +98,8 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
     # Identify devices by API call and first letter of serial number
     device_profiles = [
         (SessyBattery, SessyApiCommand.POWER_STRATEGY, "D"),
-        (SessyP1Meter, SessyApiCommand.P1_STATUS, "P"),
-        (SessyCTMeter, SessyApiCommand.P1_STATUS, "C"),
+        (SessyP1Meter, SessyApiCommand.P1_DETAILS, "P"),
+        (SessyCTMeter, SessyApiCommand.CT_DETAILS, "C"),
     ]
 
     api = SessyApi(host, username, password)
