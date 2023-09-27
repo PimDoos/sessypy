@@ -1,8 +1,12 @@
 from enum import Enum
 
 API_VERSION_1 = "api/v1"
+API_VERSION_2 = "api/v2"
 
 class SessyApiCommand(str, Enum):
+    CT_DETAILS = f"{API_VERSION_1}/ct/details"
+    METER_GRID_TARGET = f"{API_VERSION_1}/meter/grid_target"
+    
     NETWORK_SCAN = f"{API_VERSION_1}/network/scan"
     NETWORK_STATUS = f"{API_VERSION_1}/network/status"
     OTA_CHECK = f"{API_VERSION_1}/ota/check"
@@ -13,7 +17,7 @@ class SessyApiCommand(str, Enum):
     POWER_STATUS = f"{API_VERSION_1}/power/status"
     POWER_STRATEGY = f"{API_VERSION_1}/power/active_strategy"
 
-    P1_DETAILS = f"{API_VERSION_1}/p1/details"
+    P1_DETAILS = f"{API_VERSION_2}/p1/details"
     P1_STATUS = f"{API_VERSION_1}/p1/status"
     
     SYSTEM_SETTINGS = f"{API_VERSION_1}/system/settings"
@@ -40,7 +44,6 @@ class SessySystemState(str, Enum):
     OVERRIDE_UNDER_FREQUENCY = "SYSTEM_STATE_OVERRIDE_UNDERFREQUENCY", 
     DISCONNECT = "SYSTEM_STATE_DISCONNECT", 
     RECONNECT = "SYSTEM_STATE_RECONNECT",
-    BATTERY_EMPTY_OR_FULL = "SYSTEM_STATE_BATTERY_EMPTY_OR_FULL"  # unused as of version 1.5.0
     BATTERY_FULL = "SYSTEM_STATE_BATTERY_FULL"
     BATTERY_EMPTY = "SYSTEM_STATE_BATTERY_EMPTY"
 
