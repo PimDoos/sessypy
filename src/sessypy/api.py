@@ -13,7 +13,8 @@ class SessyApi:
 
         self.session = aiohttp.ClientSession(
             auth=BasicAuth(username, password),
-            raise_for_status = True
+            raise_for_status = True,
+            timeout = aiohttp.ClientTimeout(total=5)
         )
 
     async def get(self, command):
@@ -30,6 +31,10 @@ class SessyApi:
         
         except ClientConnectionError as e:
             _LOGGER.debug(f"{method} request to {url} raised a connection error: {e}")
+            raise SessyConnectionException from e
+    
+        except TimeoutError as e:
+            _LOGGER.debug(f"{method} request to {url} timed out: {e}")
             raise SessyConnectionException from e
         
         except ContentTypeError as e:
