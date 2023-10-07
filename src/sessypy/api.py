@@ -32,6 +32,10 @@ class SessyApi:
         except ClientConnectionError as e:
             _LOGGER.debug(f"{method} request to {url} raised a connection error: {e}")
             raise SessyConnectionException from e
+    
+        except TimeoutError as e:
+            _LOGGER.debug(f"{method} request to {url} timed out: {e}")
+            raise SessyConnectionException from e
         
         except ContentTypeError as e:
             _LOGGER.debug(f"{method} request to {url} returned content of an unexpected type: {e.message}")
