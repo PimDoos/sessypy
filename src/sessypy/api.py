@@ -13,7 +13,8 @@ class SessyApi:
 
         self.session = aiohttp.ClientSession(
             auth=BasicAuth(username, password),
-            raise_for_status = True
+            raise_for_status = True,
+            timeout = 5
         )
 
     async def get(self, command):
