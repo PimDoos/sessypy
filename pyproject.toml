@@ -1,11 +1,12 @@
 [project]
 name = "sessypy"
-version = "0.1.6"
+version = "0.1.7"
 authors = [
 	{ name="PimDoos" },
 ]
 description = "Python wrapper for Sessy REST API"
 readme = "README.md"
+license = { file="LICENSE" }
 
 [project.urls]
 "Homepage" = "https://github.com/PimDoos/sessypy"
