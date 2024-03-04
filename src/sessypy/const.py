@@ -31,6 +31,7 @@ class SessyPowerStrategy(str, Enum):
     NOM = "POWER_STRATEGY_NOM"
     ROI = "POWER_STRATEGY_ROI"
     IDLE = "POWER_STRATEGY_IDLE"
+    SESSY_CONNECT = "POWER_STRATEGY_SESSY_CONNECT"
 
 class SessySystemState(str, Enum):
     RUNNING_SAFE = "SYSTEM_STATE_RUNNING_SAFE"
