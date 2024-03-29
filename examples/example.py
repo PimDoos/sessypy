@@ -3,10 +3,14 @@ from config import * # Hide your secrets in example.py
 from sessypy.devices import SessyDevice, SessyP1Meter, SessyBattery, get_sessy_device
 
 async def run():
-    devices: list(SessyDevice) = [
-        await get_sessy_device(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD),
-        await get_sessy_device(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD),
-    ]
+    devices = list()
+
+    devices.append(
+        await get_sessy_device(SESSY_BATTERY_HOST, SESSY_BATTERY_USERNAME, SESSY_BATTERY_PASSWORD)
+    )
+    devices.append(
+        await get_sessy_device(SESSY_P1_HOST, SESSY_P1_USERNAME, SESSY_P1_PASSWORD)
+    )
     device: SessyDevice
     for device in devices:
         print(f"=== Sessy Device at { device.host } ===")
@@ -36,6 +40,12 @@ async def run():
             result = await device.get_system_settings()
             print(result)
             print("")
+
+            print("- Dynamic mode schedule -")
+            result = await device.get_dynamic_schedule()
+            print(result)
+            print("")
+
         elif isinstance(device, SessyP1Meter):
             print("- P1 Status -")
             result = await device.get_p1_status()
