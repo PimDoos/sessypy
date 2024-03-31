@@ -5,7 +5,7 @@ API_VERSION_2 = "api/v2"
 
 class SessyApiCommand(str, Enum):
     CT_DETAILS = f"{API_VERSION_1}/ct/details"
-    DYNAMIC_SCHEDULE = f"{API_VERSION_2}/dynamic/schedule"
+    DYNAMIC_SCHEDULE = f"{API_VERSION_1}/dynamic/schedule"
 
     METER_GRID_TARGET = f"{API_VERSION_1}/meter/grid_target"
     
