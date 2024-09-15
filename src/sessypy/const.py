@@ -7,6 +7,8 @@ class SessyApiCommand(str, Enum):
     CT_DETAILS = f"{API_VERSION_1}/ct/details"
     DYNAMIC_SCHEDULE = f"{API_VERSION_1}/dynamic/schedule"
 
+    ENERGY_STATUS = f"{API_VERSION_1}/energy/status"
+
     METER_GRID_TARGET = f"{API_VERSION_1}/meter/grid_target"
     
     NETWORK_SCAN = f"{API_VERSION_1}/network/scan"
