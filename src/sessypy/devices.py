@@ -84,7 +84,7 @@ class SessyBattery(SessyDevice):
     async def set_system_settings(self, settings):
         return await self.api.post(SessyApiCommand.SYSTEM_SETTINGS, settings)
     
-    async def set_system_settings(self, key, value):
+    async def set_system_setting(self, key, value):
         settings = await self.get_system_settings()
         settings[key] = value
         return await self.set_system_settings(settings)
