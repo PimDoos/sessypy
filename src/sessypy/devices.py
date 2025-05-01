@@ -76,7 +76,7 @@ class SessyBattery(SessyDevice):
         return await self.api.get(SessyApiCommand.POWER_STRATEGY)
     
     async def set_power_strategy(self, strategy: SessyPowerStrategy):
-        return await self.api.post(SessyApiCommand.POWER_STRATEGY, {"strategy": strategy.value})
+        return await self.api.post(SessyApiCommand.POWER_STRATEGY, {"strategy": strategy})
 
     async def get_system_settings(self):
         return await self.api.get(SessyApiCommand.SYSTEM_SETTINGS)
