@@ -2,7 +2,7 @@ import logging
 from aiohttp import BasicAuth, ClientConnectionError, ClientResponseError, ContentTypeError
 import aiohttp
 from .const import SessyApiCommand
-from .util import SessyConnectionException, SessyLoginException, SessyNotSupportedException
+from .util import SessyConnectionException, SessyLoginException, SessyNotSupportedException, SessyUnavailableException
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -45,6 +45,8 @@ class SessyApi:
             _LOGGER.debug(f"{method} request to {url} returned an error response code: {e.status} {e.message}")
             if e.status == 401:
                 raise SessyLoginException from e
+            elif e.status == 500:
+                raise SessyUnavailableException from e
             else:
                 raise SessyNotSupportedException from e
 

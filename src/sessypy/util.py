@@ -1,8 +1,14 @@
-class SessyLoginException(Exception):
+class SessyException(Exception):
     pass
 
-class SessyNotSupportedException(Exception):
+class SessyLoginException(SessyException):
     pass
 
-class SessyConnectionException(Exception):
+class SessyNotSupportedException(SessyException):
+    pass
+
+class SessyConnectionException(SessyException):
+    pass
+
+class SessyUnavailableException(SessyException):
     pass
