@@ -137,10 +137,15 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
     
 
     serial_number = system_info.get("self_serial")
-    if not serial_number:
-        _LOGGER.error(f"Discovery failed: Could not get the serial number for '{host}'")
-        await api.close()
-        raise SessyNotSupportedException(f"Could not get the serial number for '{host}'")
+
+    if not serial_number or serial_number == "unknown":
+        if username:
+            _LOGGER.debug(f"Failed to detect serial number for device at '{host}', using username '{username}' as serial number")
+            serial_number = username.upper()
+        else:
+            _LOGGER.error(f"Discovery failed: Could not get the serial number for '{host}'")
+            await api.close()
+            raise SessyNotSupportedException(f"Could not get the serial number for '{host}'")
     
     model_id = serial_number[0].upper() if serial_number else None
 
