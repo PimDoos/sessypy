@@ -63,6 +63,9 @@ class SessyBattery(SessyDevice):
     async def get_dynamic_schedule(self):
         return await self.api.get(SessyApiCommand.DYNAMIC_SCHEDULE)
     
+    async def get_dynamic_schedule_legacy(self):
+        return await self.api.get(SessyApiCommand.DYNAMIC_SCHEDULE_LEGACY)
+    
     async def get_energy_status(self):
         return await self.api.get(SessyApiCommand.ENERGY_STATUS)
     

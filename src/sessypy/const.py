@@ -5,7 +5,8 @@ API_VERSION_2 = "api/v2"
 
 class SessyApiCommand(StrEnum):
     CT_DETAILS = f"{API_VERSION_1}/ct/details"
-    DYNAMIC_SCHEDULE = f"{API_VERSION_1}/dynamic/schedule"
+    DYNAMIC_SCHEDULE_LEGACY = f"{API_VERSION_1}/dynamic/schedule"
+    DYNAMIC_SCHEDULE = f"{API_VERSION_2}/dynamic/schedule"
 
     ENERGY_STATUS = f"{API_VERSION_1}/energy/status"
 
