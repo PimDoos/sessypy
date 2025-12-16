@@ -105,6 +105,9 @@ class SessyMeter(SessyDevice):
 class SessyP1Meter(SessyMeter):
     async def get_p1_details(self):
         return await self.api.get(SessyApiCommand.P1_DETAILS)
+    
+    async def get_modbus_details(self):
+        return await self.api.get(SessyApiCommand.MODBUS_DETAILS)
 
 class SessyCTMeter(SessyMeter):
     async def get_ct_details(self):

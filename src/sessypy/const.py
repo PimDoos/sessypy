@@ -12,6 +12,8 @@ class SessyApiCommand(StrEnum):
 
     METER_GRID_TARGET = f"{API_VERSION_1}/meter/grid_target"
     METER_STATUS = f"{API_VERSION_1}/meter/status"
+
+    MODBUS_DETAILS = f"{API_VERSION_1}/modbus/details"
     
     NETWORK_SCAN = f"{API_VERSION_1}/network/scan"
     NETWORK_STATUS = f"{API_VERSION_1}/network/status"
@@ -62,6 +64,12 @@ class SessyP1State(StrEnum):
     VERSION_ERROR = "P1_VERSION_ERR"
     PARSE_ERROR = "P1_PARSE_ERR"
     OK = "P1_OK"
+
+class SessyModbusState(StrEnum):
+    DISABLED = "MODBUS_DISABLED"
+    ERROR = "MODBUS_ERROR"
+    OK = "MODBUS_OK"
+    UNSUPPORTED = "MODBUS_UNSUPPORTED"
 
 class SessyOtaTarget(StrEnum):
     SELF = "OTA_TARGET_SELF"
