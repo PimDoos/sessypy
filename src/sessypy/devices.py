@@ -50,6 +50,17 @@ class SessyDevice():
     async def get_system_info(self):
         return await self.api.get(SessyApiCommand.SYSTEM_INFO)
     
+    async def get_system_settings(self):
+        return await self.api.get(SessyApiCommand.SYSTEM_SETTINGS)
+    
+    async def set_system_settings(self, settings):
+        return await self.api.post(SessyApiCommand.SYSTEM_SETTINGS, settings)
+    
+    async def set_system_setting(self, key, value):
+        settings = await self.get_system_settings()
+        settings[key] = value
+        return await self.set_system_settings(settings)
+        
     async def restart(self):
         return await self.api.post(SessyApiCommand.SYSTEM_RESTART)
 
@@ -81,17 +92,6 @@ class SessyBattery(SessyDevice):
     async def set_power_strategy(self, strategy: SessyPowerStrategy):
         return await self.api.post(SessyApiCommand.POWER_STRATEGY, {"strategy": strategy})
 
-    async def get_system_settings(self):
-        return await self.api.get(SessyApiCommand.SYSTEM_SETTINGS)
-    
-    async def set_system_settings(self, settings):
-        return await self.api.post(SessyApiCommand.SYSTEM_SETTINGS, settings)
-    
-    async def set_system_setting(self, key, value):
-        settings = await self.get_system_settings()
-        settings[key] = value
-        return await self.set_system_settings(settings)
-    
 class SessyMeter(SessyDevice):
     async def get_grid_target(self):
         return await self.api.get(SessyApiCommand.METER_GRID_TARGET)
