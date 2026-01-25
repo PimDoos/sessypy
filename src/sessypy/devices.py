@@ -32,6 +32,11 @@ class SessyDevice():
     def api(self) -> SessyApi:
         return self._api
 
+    @property
+    def model(self) -> str:
+        """Model of the device"""
+        return NotImplementedError
+
     async def get_ota_status(self):
         return await self.api.get(SessyApiCommand.OTA_STATUS)
     
@@ -71,6 +76,10 @@ class SessyDevice():
         await self.api.close()
     
 class SessyBattery(SessyDevice):
+    @property
+    def model(self):
+        return "WiFi Dongle"
+    
     async def get_dynamic_schedule(self):
         return await self.api.get(SessyApiCommand.DYNAMIC_SCHEDULE)
     
@@ -103,6 +112,10 @@ class SessyMeter(SessyDevice):
         return await self.api.get(SessyApiCommand.METER_STATUS)
 
 class SessyP1Meter(SessyMeter):
+    @property
+    def model(self):
+        return "P1 Meter"
+    
     async def get_p1_details(self):
         return await self.api.get(SessyApiCommand.P1_DETAILS)
     
@@ -110,6 +123,10 @@ class SessyP1Meter(SessyMeter):
         return await self.api.get(SessyApiCommand.MODBUS_DETAILS)
 
 class SessyCTMeter(SessyMeter):
+    @property
+    def model(self):
+        return "CT Meter"
+    
     async def get_ct_details(self):
         return await self.api.get(SessyApiCommand.CT_DETAILS)
     
