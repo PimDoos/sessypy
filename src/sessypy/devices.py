@@ -153,9 +153,11 @@ async def get_sessy_device(host: str, username: str, password: str) -> SessyDevi
         _LOGGER.debug(f"System info for {host}: {system_info}")
     except SessyConnectionException as e:
         _LOGGER.error(f"Failed to connect to {host}: {e}")
+        await api.close()
         raise SessyConnectionException from e
     except SessyNotSupportedException as e:
         _LOGGER.error(f"Device at {host} is not supported: {e}")
+        await api.close()
         raise SessyNotSupportedException from e
     
 
